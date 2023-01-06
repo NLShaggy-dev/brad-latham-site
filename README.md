@@ -1,6 +1,6 @@
-# Welcome to your CDK TypeScript project
+# Welcome to your bradlatham.com source code
 
-This is a blank project for CDK development with TypeScript.
+this CDK App defines the construction of bradlatham.com (my own CV website)
 
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
