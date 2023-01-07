@@ -30,18 +30,18 @@ h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
 a{color:inherit;text-decoration:inherit;}
 img{vertical-align:middle}
-footer{height:100%}
+p{color:#d7d6d3!important}
 .forrest{color:#fff!important;background-color:#2C4142!important}
 .content{margin-left:auto;margin-right:auto}.w3-content{max-width:980px}.w3-auto{max-width:1140px}
 .margin-top{margin-top:16px!important}
 .row-padding{padding:0 8px}.row-padding:after{content:"";display:table;clear:both}
-.third{padding:0 8px;float:left;width:100%;width:33.33333%}
-.olive{color:#000!important;background-color:#697474!important}
+.third{padding:0 8px;float:left;width:100%;width:33.33333%;display:flex;flex-flow:column}
+.olive{color:#d7d6d3!important;background-color:#697474!important}
 .text-gray{color:#d7d6d3!important}
 .card-4{box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19)}
 .display-container{position:relative}.display-container:hover{display:block;display:inline-block}
 .display-bottomleft{position:absolute;left:0;bottom:0}
-.container{padding:0.01em 16px}.container:after,.container:before{content:"";display:table;clear:both}
+.container{padding:0.01em 16px;}.container:after,.container:before{content:"";display:table;clear:both}
 .text-slate{color:#2d3437!important}
 .margin-right{margin-right:16px!important}
 .large{font-size:18px!important}
@@ -52,7 +52,8 @@ footer{height:100%}
 .margin-bottom{margin-bottom:16px!important}
 .padding-16{padding-top:16px!important;padding-bottom:16px!important}
 .xxlarge{font-size:36px!important}
-.tag{background-color:#bd7947;color:#2d3437;display:inline-block;padding-left:8px;padding-right:8px;text-align:center}
+.tag{background-color:#bd7947;color:#d7d6d3;display:inline-block;padding-left:8px;padding-right:8px;text-align:center}
 .orange{color:#000!important;background-color:#bd7947!important}
 .round{border-radius:4px}
-.center{text-align:center!important;display:inline-block;width:auto}
+.center{text-align:center!important;width:auto}
+*,::before,::after{box-sizing:inherit;}
