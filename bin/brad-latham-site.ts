@@ -6,7 +6,8 @@ import { FrontEndStack } from '../lib/frontend';
 const app = new cdk.App();
 new FrontEndStack(app, {
   env: {
-    account: '433431717427',
-    region: 'us-east-1'
-  }
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
+  hostedZoneDomain: process.env.HOSTEDZONE_NAME || 'bradlatham.com'
 });

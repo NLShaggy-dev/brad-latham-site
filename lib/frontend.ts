@@ -8,15 +8,18 @@ import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { Construct } from 'constructs';
 import * as path from 'path';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+
+interface FrontEndStackProps extends cdk.StackProps {
+  hostedZoneDomain: string;
+}
 
 export class FrontEndStack extends cdk.Stack {
-  constructor(scope: Construct, props?: cdk.StackProps) {
+  constructor(scope: Construct, props: FrontEndStackProps) {
     super(scope, 'FrontEndStack', props);
 
-    // Lookup hosted zone of `bradlatham.com`
-    const zone = route53.HostedZone.fromLookup(this, 'bradlatham', {
-      domainName: 'bradlatham.com'
+    // Lookup hosted zone of props.hostedZoneDomain
+    const zone = route53.HostedZone.fromLookup(this, `${props.hostedZoneDomain}`, {
+      domainName: props.hostedZoneDomain
     });
 
     const assetsBucket = new s3.Bucket(this, 'AssetsBucket', {
@@ -24,10 +27,10 @@ export class FrontEndStack extends cdk.Stack {
       publicReadAccess: true
     });
 
-    const cert = new acm.DnsValidatedCertificate(this, 'bradlathamCert', {
-      domainName: 'www.bradlatham.com',
+    const cert = new acm.DnsValidatedCertificate(this, `${props.hostedZoneDomain}Cert`, {
+      domainName: `${props.hostedZoneDomain}`,
       hostedZone: zone,
-      region: 'us-east-1'
+      region: props.env?.region
     });
 
     const distribution = new cloudfront.Distribution(this, 'Distribution', {
@@ -35,7 +38,7 @@ export class FrontEndStack extends cdk.Stack {
         origin: new origins.S3Origin(assetsBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS
       },
-      domainNames: ['www.bradlatham.com'],
+      domainNames: [props.hostedZoneDomain],
       certificate: cert,
     });
 
@@ -44,9 +47,8 @@ export class FrontEndStack extends cdk.Stack {
     });
 
     // add a record to hostedzone
-    const aRecord = new route53.ARecord(this, 'CDNARecord', {
+    new route53.ARecord(this, 'CDNARecord', {
       zone,
-      recordName: 'www',
       target: route53.RecordTarget.fromAlias(new CloudFrontTarget(distribution))
     });
 
@@ -56,7 +58,5 @@ export class FrontEndStack extends cdk.Stack {
       )],
       destinationBucket: assetsBucket
     });
-
-
   }
 }
